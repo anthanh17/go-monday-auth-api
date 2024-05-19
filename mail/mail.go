@@ -1,12 +1,13 @@
 package mail
 
 import (
+	"fmt"
 	"log"
 	"net/smtp"
 	"strconv"
 )
 
-func SendEmail(receiverMail string, otpCode string) {
+func SendEmail(userName string, receiverMail string, otpCode string) {
 	// Set up authentication information.
 	smtpHost := "smtp.gmail.com"
 	smtpPort := 587
@@ -18,7 +19,8 @@ func SendEmail(receiverMail string, otpCode string) {
 
 	// Email content.
 	subject := "OTP Login Assistant DAG"
-	body := "Your otp code is: " + otpCode
+
+	body := fmt.Sprintf("Dear %s,\n\nYour OTP code is: %s\n\nPlease use this code to complete your verification. It is valid for 60s.\n\nIf you did not request this, please ignore this email.\n\nThank you,\nAihoply", userName, otpCode)
 
 	// Message.
 	message := "Subject: " + subject + "\r\n" +

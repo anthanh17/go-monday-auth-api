@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 	db "monday-auth-api/db/sqlc"
+	mail "monday-auth-api/mail"
 	"monday-auth-api/util"
 	"net/http"
-	mail "monday-auth-api/mail"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -141,7 +141,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 		return
 	}
 
-	ttl := 300 * time.Second // 5m seconds TTL
+	ttl := 60 * time.Second // 60s seconds TTL
 	err = server.redisdb.Set(ctx, key, value_otp, ttl).Err()
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(errors.New("save redis false")))
@@ -149,8 +149,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 	}
 
 	// Send email
-	mail.SendEmail(user.Mail, value_otp)
-
+	mail.SendEmail(user.UserName, user.Mail, value_otp)
 
 	ctx.JSON(http.StatusOK, loginUserResponse{
 		Message: "OK",
