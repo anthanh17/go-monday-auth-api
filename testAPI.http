@@ -1,0 +1,39 @@
+# Create user
+POST http://localhost:8081/users
+content-type: application/json
+
+{
+    "user_name": "nam.nguyen",
+    "full_name": "nguyent the an",
+    "mail": "anguyen@gmail.com",
+    "role": "user"
+}
+
+###
+# Get user
+GET http://localhost:8081/user/15
+
+###
+# Get list users
+GET http://localhost:8081/users?page_id=1&page_size=5
+
+###
+# Login users
+POST http://localhost:8081/login
+content-type: application/json
+
+{
+    "user_name": "an.nguyen",
+    "mail": "annguyenthe.master@gmail.com"
+}
+
+###
+# Verify OTP
+POST http://localhost:8081/otp
+content-type: application/json
+
+{
+    "user_name": "an.nguyen",
+    "mail": "annguyenthe.master@gmail.com",
+    "otp": "859584"
+}
