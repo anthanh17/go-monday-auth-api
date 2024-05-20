@@ -7,6 +7,7 @@ import (
 	token "monday-auth-api/token"
 	"monday-auth-api/util"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 )
@@ -47,6 +48,12 @@ func NewServer(config util.Config, store *db.Store) (*Server, error) {
 
 func (server *Server) setupRouter() {
 	router := gin.Default()
+
+	// Use CORS middleware
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"} // Update with your allowed origins
+	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
+	router.Use(cors.New(config))
 
 	router.POST("/login", server.loginUser)
 	router.POST("/otp", server.verifyOtp)

@@ -1,25 +1,26 @@
 # Create user
-POST http://localhost:8081/users
+
+POST ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/users
 content-type: application/json
 
 {
-    "user_name": "nam.nguyen",
+    "user_name": "an.nguyen",
     "full_name": "nguyent the an",
-    "mail": "anguyen@gmail.com",
+    "mail": "annguyenthe.master@gmail.com",
     "role": "user"
 }
 
 ###
 # Get user
-GET http://localhost:8081/user/15
+GET ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/user/15
 
 ###
 # Get list users
-GET http://localhost:8081/users?page_id=1&page_size=5
+GET ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/users?page_id=1&page_size=5
 
 ###
 # Login users
-POST http://localhost:8081/login
+POST ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/login
 content-type: application/json
 
 {
@@ -29,7 +30,7 @@ content-type: application/json
 
 ###
 # Verify OTP
-POST http://localhost:8081/otp
+POST ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/otp
 content-type: application/json
 
 {
