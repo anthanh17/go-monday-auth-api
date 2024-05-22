@@ -12,7 +12,7 @@ content-type: application/json
 
 ###
 # Get user
-GET ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/user/15
+GET https://ec2-18-141-12-199.ap-southeast-1.compute.amazonaws.com:8081/user/15
 
 ###
 # Get list users

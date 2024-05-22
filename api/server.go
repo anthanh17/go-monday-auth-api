@@ -6,6 +6,7 @@ import (
 	db "monday-auth-api/db/sqlc"
 	token "monday-auth-api/token"
 	"monday-auth-api/util"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -50,10 +51,14 @@ func (server *Server) setupRouter() {
 	router := gin.Default()
 
 	// Use CORS middleware
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"*"} // Update with your allowed origins
-	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
-	router.Use(cors.New(config))
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Chỉnh sửa cho phù hợp với yêu cầu của bạn
+		AllowCredentials: true,
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Authorization", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "accept", "origin", "Cache-Control", "X-Requested-With"},
+		ExposeHeaders:    []string{"Content-Length"},
+		MaxAge:           12 * time.Hour,
+	}))
 
 	router.POST("/login", server.loginUser)
 	router.POST("/otp", server.verifyOtp)
